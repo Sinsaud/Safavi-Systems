@@ -3,30 +3,477 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>Soroush Safavi</title>
+  <meta name="description" content="Personal academic website of Soroush Safavi">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-      line-height: 1.6;
+    :root {
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --text: #16202a;
+      --muted: #5f6b7a;
+      --line: #dfe6ee;
+      --primary: #1f4f82;
+      --primary-dark: #173c63;
+      --shadow: 0 12px 30px rgba(18, 35, 52, 0.08);
+      --radius: 18px;
+      --maxw: 1100px;
     }
-    h1 { margin-bottom: 0.2em; }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(31,79,130,0.08), transparent 30%),
+        linear-gradient(to bottom, #f8fbff, var(--bg));
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--maxw), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(248, 251, 255, 0.88);
+      border-bottom: 1px solid rgba(223, 230, 238, 0.9);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .brand {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-size: 0.96rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .hero {
+      padding: 84px 0 54px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .panel,
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 44px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(31,79,130,0.10);
+      color: var(--primary);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 1.16rem;
+      color: var(--muted);
+      max-width: 62ch;
+      margin-bottom: 24px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
     .btn {
       display: inline-block;
-      padding: 10px 16px;
-      background: black;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
       color: white;
-      text-decoration: none;
-      border-radius: 8px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: #bfcbd8;
+      transform: translateY(-1px);
+    }
+
+    .panel {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .panel h3 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+    }
+
+    .stat {
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .stat:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.02rem;
+      margin-bottom: 4px;
+    }
+
+    section {
+      padding: 22px 0 34px;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 70ch;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      padding: 7px 11px;
+      background: #eef4fa;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .project-title {
+      margin-bottom: 8px;
+      font-size: 1.12rem;
+      font-weight: 700;
+    }
+
+    .project-meta {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      padding: 28px 0 50px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .panel,
+      .card {
+        padding: 24px;
+      }
+
+      .nav-inner {
+        gap: 12px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Hello, I’m Soroush</h1>
-  <p>This website is hosted for free on GitHub Pages.</p>
-  <p>I work on Operations Research, Optimization, and Simulation.</p>
-  <a class="btn" href="mailto:your@email.com">Contact</a>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">Soroush Safavi</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <div class="eyebrow">Operations Research • Optimization • Simulation</div>
+        <h1>Soroush Safavi</h1>
+        <p class="subtitle">
+          Researcher in Operations Research with interests in optimization,
+          simulation, healthcare systems, and data-driven decision making.
+        </p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-secondary" href="mailto:your@email.com">Email Me</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Current Focus</h3>
+
+        <div class="stat">
+          <strong>Research Area</strong>
+          Perishable inventory systems, optimization, and simulation-based decision support.
+        </div>
+
+        <div class="stat">
+          <strong>Application Domain</strong>
+          Healthcare operations, blood inventory management, and operational analytics.
+        </div>
+
+        <div class="stat">
+          <strong>Methods</strong>
+          Mathematical modelling, stochastic systems, discrete-event simulation, and statistical analysis.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>About</h2>
+          <p>
+            This website presents academic and professional work in operations research,
+            optimization, simulation, and healthcare analytics.
+          </p>
+        </div>
+
+        <div class="card">
+          <p>
+            The current work focuses on quantitative models for complex systems,
+            with particular interest in perishable inventory control, uncertainty,
+            and decision support in healthcare settings. Research combines rigorous
+            modelling with computational methods to support practical policy design.
+          </p>
+
+          <div class="tag-row">
+            <span class="tag">Optimization</span>
+            <span class="tag">Simulation</span>
+            <span class="tag">Inventory Control</span>
+            <span class="tag">Healthcare Analytics</span>
+            <span class="tag">Statistical Analysis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="container">
+        <div class="section-head">
+          <h2>Research Interests</h2>
+          <p>
+            Main themes of current and recent work.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Perishable Inventory Systems</h3>
+            <p>
+              Modelling and optimization of short shelf-life products under uncertain and intermittent demand.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Simulation and Decision Support</h3>
+            <p>
+              Use of simulation models and analytical methods to evaluate policies and improve operational performance.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Healthcare Operations</h3>
+            <p>
+              Applications in blood inventory, emergency logistics, and operational planning under uncertainty.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h2>Selected Projects</h2>
+          <p>
+            Replace these placeholders with your actual projects, papers, or presentations.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="project-title">Project 1: Perishable Inventory Management</div>
+            <div class="project-meta">Optimization • Healthcare • Inventory Control</div>
+            <p>
+              Study of inventory policies for perishable healthcare products under sparse and uncertain demand.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="project-title">Project 2: Simulation-Based Policy Evaluation</div>
+            <div class="project-meta">Simulation • Statistical Analysis</div>
+            <p>
+              Development of discrete-event simulation models to compare operational policies and system performance.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="project-title">Project 3: Optimization under Uncertainty</div>
+            <div class="project-meta">Stochastic Modelling • Decision Support</div>
+            <p>
+              Quantitative modelling of systems with uncertain demand, limited shelf life, and service constraints.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="project-title">Project 4: Research Communication</div>
+            <div class="project-meta">Academic Writing • Presentations</div>
+            <p>
+              Preparation of scientific manuscripts, technical reports, and presentations for academic and applied audiences.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p>
+            Add your preferred contact details below.
+          </p>
+        </div>
+
+        <div class="card">
+          <p><strong>Email:</strong> <a href="mailto:your@email.com">your@email.com</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></p>
+          <p><strong>LinkedIn:</strong> <a href="#" target="_blank">Add your LinkedIn link</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container footer">
+    © 2026 Soroush Safavi
+  </div>
+
 </body>
 </html>
